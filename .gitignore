@@ -130,3 +130,5 @@ dmypy.json
 
 # User Defined
 source/keys/key.yaml
+*.csv
+*.pq
