@@ -5,9 +5,6 @@ import yaml
 class Auth(object):
     def __init__(self):
         self.df = pd.DataFrame()
-        return
-
-    def load(self):
         with open(".\source\keys\key.yaml", 'r') as stream:
             try:
                 config = yaml.safe_load(stream)
