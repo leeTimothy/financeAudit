@@ -3,10 +3,14 @@ METHOD = 'get'
 
 import pandas as pd
 import requests
+import signal
 
 from source.utilities.config import Auth as Auth
 
-def up_request(endpoint: str=None, params: dict=None):
+def up_request(endpoint: str, params: dict=None): #TODO - this method currently looks at it from an auth bearer point of view - but you should make this across the board account # specific.
+    if endpoint == params == None:
+        signal.SIGBREAK
+        return 
     auth = Auth()
     df = pd.DataFrame()
     for i in auth.df.index:
@@ -32,4 +36,12 @@ def up_request(endpoint: str=None, params: dict=None):
             df = pd.concat([df_iter, df])
             df = df.reset_index(drop=True)
             more_data = data['links']['next']!=None
+    df = df.drop_duplicates(['id']).reset_index(drop=True)
+    df = df.sort_values(['attributes.createdAt'], ascending = False).reset_index(drop=True)
+    return df
+
+def ing_parse(df):
+    df['Credit'] = pd.to_numeric(df['Credit']).fillna(0)
+    df['Debit'] = pd.to_numeric(df['Debit']).fillna(0)
+    df['Total'] = df[['Credit','Debit']].sum(axis=1)
     return df

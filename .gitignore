@@ -132,3 +132,4 @@ dmypy.json
 source/keys/key.yaml
 *.csv
 *.pq
+maps/
