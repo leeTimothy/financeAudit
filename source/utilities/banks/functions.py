@@ -4,8 +4,13 @@ METHOD = 'get'
 import pandas as pd
 import requests
 import signal
+import yaml
 
 from source.utilities.config import Auth as Auth
+
+# Import Configs
+with open('.\maps\ing_account.yaml', 'r') as file:
+    ing_map = yaml.safe_load(file)
 
 def up_request(endpoint: str, params: dict=None): #TODO - this method currently looks at it from an auth bearer point of view - but you should make this across the board account # specific.
     if endpoint == params == None:
@@ -44,4 +49,5 @@ def ing_parse(df):
     df['Credit'] = pd.to_numeric(df['Credit']).fillna(0)
     df['Debit'] = pd.to_numeric(df['Debit']).fillna(0)
     df['Total'] = df[['Credit','Debit']].sum(axis=1)
+    df['Account'] = df['Account'].replace(ing_map)
     return df

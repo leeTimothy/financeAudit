@@ -3,7 +3,9 @@
 import datetime
 import os
 import pandas as pd
+import yaml
 pd.options.display.float_format = '${:,.2f}'.format
+pd.options.display.max_columns = 1000
 
 from IPython.display import display, HTML
 from IPython.core.interactiveshell import InteractiveShell
@@ -12,31 +14,42 @@ InteractiveShell.ast_node_interactivity = "all"
 # Custom Libraries
 # from source.transactions.classes import Transactions as Transactions
 from source.utilities.config import Auth as Auth
-from source.utilities.functions import up_request, ing_parse
+from source.utilities.banks.functions import up_request, ing_parse
+
+# Import Configs
+with open('.\maps\ing_to_up_columns.yaml', 'r') as file:
+    ing_up_map = yaml.safe_load(file)
+
 
 class Up(object):
-    def __init__(self):
+    def __init__(self, amalgam=False):
+        print('===UP Account===')
         self.accounts = self.Account()
-        self.transactions = self.Transactions()
+        account_map = self.accounts.df.set_index('id')['attributes_displayName'].to_dict()
+        self.transactions = self.Transactions(account_map)
+        if amalgam==True:
+            self.transactions.df['attributes_settledAt'] = pd.to_datetime(self.transactions.df['attributes_settledAt'], format='%Y-%m-%d')
+        print()
 
     class Account(object):
         def __init__(self):
-            auth = Auth()
             endpoint = 'accounts'
             params = None
             self.df = pd.DataFrame()
-            self.df = up_request(endpoint = endpoint, params=None)
+            self.df = up_request(endpoint = endpoint, params=params)
             self.df.columns = self.df.columns.str.replace('.', '_', regex=False)
             self.df['twoUp'] = self.df.groupby(['id'])['type'].transform('count')
             self.df = self.df.drop_duplicates('id', keep='first')
             self.df.loc[self.df.twoUp == 2, 'source'] = 'jointAccount'
             self.df = self.df[['id','attributes_displayName','attributes_balance_value','source']]
+            self.df['attributes_balance_value'] = pd.to_numeric(self.df['attributes_balance_value']).copy()
+
             return
 
     class Transactions(object):
-        def __init__(self):
+        def __init__(self,account_map):
             start = datetime.datetime.now()
-            auth = Auth()
+            account_map = account_map
             try:
                 self.df = pd.read_parquet(r'.\cache\up\transactions.pq')
             except FileNotFoundError:
@@ -44,10 +57,14 @@ class Up(object):
                 self.read_all()
                 print(f"Read completed in {datetime.datetime.now() - start}")
             self.update_all()
+            self.df.columns = self.df.columns.str.replace('.', '_', regex=False)
+            self.df['attributes_amount_value'] = pd.to_numeric(self.df['attributes_amount_value']).copy()
+            self.df['relationships_account_data_id'] = self.df['relationships_account_data_id'].replace(account_map).copy()
+            self.df['relationships_transferAccount_data_id'] = self.df['relationships_transferAccount_data_id'].replace(account_map).copy()
+            self.df['attributes_settledAt'] = self.df['attributes_settledAt'].str.slice(0,10).copy() # We don't really need the granularity of datetime, date is fine
             return
 
         def read_all(self):
-            auth = Auth()
             endpoint = 'transactions'
             params = {
                 'filter[status]': 'SETTLED',
@@ -81,11 +98,18 @@ class Up(object):
             return
 
 class ING(object):
-    def __init__(self):
+    def __init__(self, amalgam=False):
+        print('===ING Account===')
         self.path = r'.\cache\ing\data.pq'
         self.read_parse()
         self.accounts = self.Account()
         self.transactions = self.Transactions()
+        if amalgam==True:
+            self.accounts.df = self.accounts.df.rename(columns = ing_up_map['accounts'])
+            self.transactions.df = self.transactions.df.rename(columns = ing_up_map['transactions'])
+            self.transactions.df['attributes_settledAt'] = pd.to_datetime(self.transactions.df['attributes_settledAt'], format='%d/%m/%Y')
+
+        print()
         return
 
     def read_parse(self):
@@ -118,6 +142,7 @@ class ING(object):
             self.df = pd.read_parquet(r'.\cache\ing\data.pq')
             self.df = ing_parse(self.df)
             self.df = self.df.groupby(['Account'])['Total'].sum().reset_index()
+            self.df.source = 'ing'
             return
     
     class Transactions(object):
