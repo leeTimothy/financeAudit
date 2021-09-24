@@ -6,6 +6,7 @@ import pandas as pd
 import yaml
 pd.options.display.float_format = '${:,.2f}'.format
 pd.options.display.max_columns = 1000
+pd.options.display.max_rows = 1000
 
 from IPython.display import display, HTML
 from IPython.core.interactiveshell import InteractiveShell
@@ -19,6 +20,8 @@ from source.utilities.banks.functions import up_request, ing_parse
 # Import Configs
 with open('.\maps\ing_to_up_columns.yaml', 'r') as file:
     ing_up_map = yaml.safe_load(file)
+with open('.\maps\ing_account.yaml', 'r') as file:
+    ing_accounts = yaml.safe_load(file)
 
 
 class Up(object):
@@ -43,7 +46,6 @@ class Up(object):
             self.df.loc[self.df.twoUp == 2, 'source'] = 'jointAccount'
             self.df = self.df[['id','attributes_displayName','attributes_balance_value','source']]
             self.df['attributes_balance_value'] = pd.to_numeric(self.df['attributes_balance_value']).copy()
-
             return
 
     class Transactions(object):
@@ -108,7 +110,8 @@ class ING(object):
             self.accounts.df = self.accounts.df.rename(columns = ing_up_map['accounts'])
             self.transactions.df = self.transactions.df.rename(columns = ing_up_map['transactions'])
             self.transactions.df['attributes_settledAt'] = pd.to_datetime(self.transactions.df['attributes_settledAt'], format='%d/%m/%Y')
-
+            max_date = self.transactions.df['attributes_settledAt'].max()
+            print(f'Last transaction settled at {max_date}')
         print()
         return
 
@@ -128,6 +131,7 @@ class ING(object):
             for i in csvs:
                 df_iter = pd.read_csv(r'.\inputs\ing\\' + i)
                 df = pd.concat([df_iter,df])
+                df = df.drop_duplicates().reset_index(drop=True)
             df.to_parquet(self.path)
         else:
             print('No new inputs detected.')
@@ -136,13 +140,12 @@ class ING(object):
                 os.remove(r'.\inputs\ing\\'+i)
         return
 
-
     class Account(object):
         def __init__(self):
             self.df = pd.read_parquet(r'.\cache\ing\data.pq')
             self.df = ing_parse(self.df)
-            self.df = self.df.groupby(['Account'])['Total'].sum().reset_index()
-            self.df.source = 'ing'
+            self.df = self.df.groupby(['Account','id'])['Total'].sum().reset_index()
+            self.df['source'] = 'ing'
             return
     
     class Transactions(object):
