@@ -49,5 +49,6 @@ def ing_parse(df):
     df['Credit'] = pd.to_numeric(df['Credit']).fillna(0)
     df['Debit'] = pd.to_numeric(df['Debit']).fillna(0)
     df['Total'] = df[['Credit','Debit']].sum(axis=1)
+    df['id'] = df['Account'].copy()
     df['Account'] = df['Account'].replace(ing_map)
     return df
