@@ -152,4 +152,3 @@ class ING(object):
         def __init__(self):
             self.df = self.df = pd.read_parquet(r'.\cache\ing\data.pq')
             self.df = ing_parse(self.df)
-
