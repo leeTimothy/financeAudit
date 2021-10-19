@@ -17,11 +17,12 @@ from source.utilities.config import Auth as Auth
 from source.utilities.banks.functions import up_request, ing_parse
 
 # Import Configs
-with open('.\maps\ing_to_up_columns.yaml', 'r') as file:
+with open(r'.\maps\ing_to_up_columns.yaml', 'r') as file:
     ing_up_map = yaml.safe_load(file)
-with open('.\maps\ing_account.yaml', 'r') as file:
+with open(r'.\maps\ing_account.yaml', 'r') as file:
     ing_accounts = yaml.safe_load(file)
-
+with open(r'.\maps\tags.yaml', 'r') as file:
+    tags = yaml.safe_load(file)
 
 class Up(object):
     def __init__(self, amalgam=False):
@@ -64,6 +65,8 @@ class Up(object):
             self.df['relationships_transferAccount_data_id'] = self.df['relationships_transferAccount_data_id'].replace(account_map).copy()
             self.df['attributes_settledAt'] = self.df['attributes_settledAt'].str.slice(0,10).copy() # We don't really need the granularity of datetime, date is fine
             self.df['source'] = 'up'
+            self.df['tags'] = self.df['attributes_rawText'].replace(tags['up']['attributes_rawText'])
+            self.df[self.df['attributes_rawText']==self.df['tags'], 'tags'] = None
             return
 
         def read_all(self):
@@ -153,4 +156,5 @@ class ING(object):
             self.df = self.df = pd.read_parquet(r'.\cache\ing\data.pq')
             self.df = ing_parse(self.df)
             self.df['source'] = 'ing'
-
+            self.df['tags'] = self.df['Description'].replace(tags['ing']['Description'])
+            self.df[self.df['Description']==self.df['tags'], 'tags'] = None
