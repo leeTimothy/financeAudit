@@ -13,7 +13,6 @@ from IPython.core.interactiveshell import InteractiveShell
 InteractiveShell.ast_node_interactivity = "all"
 
 # Custom Libraries
-# from source.transactions.classes import Transactions as Transactions
 from source.utilities.config import Auth as Auth
 from source.utilities.banks.functions import up_request, ing_parse
 
@@ -64,6 +63,7 @@ class Up(object):
             self.df['relationships_account_data_id'] = self.df['relationships_account_data_id'].replace(account_map).copy()
             self.df['relationships_transferAccount_data_id'] = self.df['relationships_transferAccount_data_id'].replace(account_map).copy()
             self.df['attributes_settledAt'] = self.df['attributes_settledAt'].str.slice(0,10).copy() # We don't really need the granularity of datetime, date is fine
+            self.df['source'] = 'up'
             return
 
         def read_all(self):
@@ -152,3 +152,5 @@ class ING(object):
         def __init__(self):
             self.df = self.df = pd.read_parquet(r'.\cache\ing\data.pq')
             self.df = ing_parse(self.df)
+            self.df['source'] = 'ing'
+
