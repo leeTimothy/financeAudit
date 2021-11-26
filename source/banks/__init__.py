@@ -2,9 +2,6 @@
 import pandas as pd
 # pd.options.display.max_columns = 1000
 pd.options.display.max_rows = 1000
-import yaml
-
-
 
 import source.banks.transactions as trans
 
@@ -29,7 +26,6 @@ def parse_transactions(df):
     return df
 
 def tag_transactions(df):
-    df['tags'] = df['attributes_rawText'].replace(names['attributes_rawText'])
     return df
 
 
