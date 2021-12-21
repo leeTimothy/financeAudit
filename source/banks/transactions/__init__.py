@@ -79,6 +79,8 @@ class Up(object):
             self.df['attributes_settledAt'] = self.df['attributes_settledAt'].str.slice(
                 0, 10).copy()  # We don't really need the granularity of datetime, date is fine
             self.df['source'] = 'up'
+            self.df['attributes_rawText'] = self.df['attributes_rawText'].astype(
+                'str')
             self.df['tags'] = self.df['attributes_rawText'].replace(
                 tags['up']['attributes_rawText'], regex=True)
             # self.df[self.df['attributes_rawText']==self.df['tags'], 'tags'] = None
@@ -135,7 +137,6 @@ class ING(object):
                 self.transactions.df['attributes_settledAt'], format='%d/%m/%Y')
             max_date = self.transactions.df['attributes_settledAt'].max()
             print(f'Last transaction settled at {max_date}')
-        print()
         return
 
     def read_parse(self):
@@ -184,4 +185,7 @@ class ING(object):
             self.df['source'] = 'ing'
             self.df['tags'] = self.df['Description'].replace(
                 tags['ing']['Description'], regex=True)
+            # Remove internal transfers - this muddies up sum totals
+            # self.df = self.df[self.df.Description.str.find(
+            #     'Internal Transfer') < 0]
             # self.df[self.df['Description']==self.df['tags'], 'tags'] = None
