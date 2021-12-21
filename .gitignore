@@ -130,6 +130,6 @@ dmypy.json
 
 # User Defined
 source/keys/key.yaml
+maps/ing_account.yaml
 *.csv
 *.pq
-maps/
