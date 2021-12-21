@@ -1,0 +1,47 @@
+up:
+  attributes_rawText:
+    .*MONASH UNIVERSIT.*: Income
+    .*NBN CO LIMITED -.*: Income
+    .*ransfer to.*: Internal
+    .*ransfer from.*: Internal
+    .*ATM Rebate.*|.*ATM owner fee.*: Fees & Rebates - ATM
+    WOOLWORTHS.*: Groceries - Woolworths
+    OPTUS BILLING.*: Bills - Phone
+    MYKI.*: Myki
+
+ing:
+  Description:
+    .*BUPA.*: Bupa Health Insurance
+    .*PSYCHODYNAMICS.*: PSYCHODYNAMICS, CARLTON
+    .*THE ICONIC.*|\-THE\-ICONIC\-.*: Internet Shopping - The Iconic
+    .*THE STUDIO BEANS.*|SQ \*CARNEGIE|The Studio Beans.*: The Studio Beans
+    .*UBER.*?EATS.*|Uber Eats.*: Food Delivery - Uber Eats
+    .*YOUTUBEPREMIUM.*: Subscriptions - Youtube Premium
+    ALDI STORES.*: Groceries - Aldi
+    AMAYSIM.*: Bills - Phone
+    AMDENT: Healthcare - Dental
+    CARNEGIE IGA.*: IGA
+    CHEMIST WAREHOUSE.*: Healthcare - Chemist Warehouse
+    CITY HEALTH.*: City Health
+    DEFT RENT.*: Rent - Carnegie
+    DELIVEROO.*|DELIVEROO\.COM\.AU.*: Food Delivery - Deliveroo
+    Everyday round up.*: Round Up
+    Goodlife.*: Goodlife Carnegie
+    Interest Credit: Interest
+    Internal Transfer.*: Internal
+    International.*?Fee.*: Fees & Rebates - International Transactions
+    JICHUCK.*: HelloMart
+    MCDONALDS.*: McDonalds
+    MUJI.*: Muji
+    MYKI.*: Myki
+    NETFLIX.*: Subscriptions - Netflix
+    OPTUS BILLING.*: Bills - Phone
+    ORIGINENERGY.*: Utility - Gas
+    Salary Deposit.*: Income
+    SOUTH EAST WATER INT.*: Utility - Water
+    SUPERLOOP.*|EXETEL.*: Utility - Internet
+    Tango Energy.*: Utility - Electricity
+    Telstra.*: Bills - Phone
+    THE FARBIC STORE.*: Hobbies - Sewing
+    UBER.*?TRIP.*|Uber Trips.*: Ride Share - Uber Trips
+    WOOLWORTHS.*: Groceries - Woolworths
