@@ -10,7 +10,7 @@ up:
     ATM Cash Out: Cash Out
     .*?[Tt]ransfer to.*|.*?[Tt]ransfer from.*|\AING.*|\AForward.*|\$timothylee: Internal
     Round Up: Round Up
-    .*?[Ii]nterest.*?: Interest
+    .*?[Ii]nterest.*: Interest
 
 ing:
   Description:
