@@ -19,12 +19,16 @@ class Amalgam(object):
         self.up = self.up.transactions.df
         self.ing = self.ing.transactions.df
         self.summary = self.summary()
+        # self.income = self.income()
         return
 
     def summary(self):
         summary_df = self.df.groupby(['month_year'])[
             'attributes_amount_value'].sum()
         return summary_df
+
+    # def income(self):
+    #     income_df = self.df[self.df.]
 
 
 def parse_transactions(df):
@@ -33,6 +37,9 @@ def parse_transactions(df):
     df['month'] = df['attributes_settledAt'].dt.month
     df['year'] = df['attributes_settledAt'].dt.year
     df['month_year'] = df['attributes_settledAt'].dt.to_period('M')
+    for column in df:  # Drop all empty columns
+    if df[column].dropna().empty:
+        print(column)
     return df
 
 
