@@ -1,16 +1,17 @@
 up:
   attributes_rawText:
+    .*?[Tt]ransfer to.*|.*?[Tt]ransfer from.*|\AING.*|\AForward.*|\$timothylee: Internal
+    .*ATM Rebate.*|.*ATM owner fee.*: Fees & Rebates - ATM
     .*MONASH UNIVERSIT.*: Income
     .*NBN CO LIMITED -.*: Income
-    .*ATM Rebate.*|.*ATM owner fee.*: Fees & Rebates - ATM
-    WOOLWORTHS.*: Groceries - Woolworths
-    OPTUS BILLING.*: Bills - Phone
+    .*THE STUDIO BEANS.*|SQ \*CARNEGIE|The Studio Beans.*: The Studio Beans
     MYKI.*: Myki
+    OPTUS BILLING.*: Bills - Phone
+    WOOLWORTHS.*: Groceries - Woolworths
   attributes_description:
-    ATM Cash Out: Cash Out
-    .*?[Tt]ransfer to.*|.*?[Tt]ransfer from.*|\AING.*|\AForward.*|\$timothylee: Internal
-    Round Up: Round Up
     .*?[Ii]nterest.*: Interest
+    ATM Cash Out: Cash Out
+    Round Up: Round Up
 
 ing:
   Description:
