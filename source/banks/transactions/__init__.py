@@ -62,6 +62,7 @@ class Up(object):
             account_map = account_map
             try:
                 self.df = pd.read_parquet(r'.\cache\up\transactions.pq')
+                print(f'{len(self.df)} lines read from cached data')
             except FileNotFoundError:
                 print(
                     "Cached read does not exist - Extracting All Settled Transactions from Up")
