@@ -2,17 +2,21 @@ up:
   attributes_rawText:
     .*MONASH UNIVERSIT.*: Income
     .*NBN CO LIMITED -.*: Income
-    .*ransfer to.*: Internal
-    .*ransfer from.*: Internal
     .*ATM Rebate.*|.*ATM owner fee.*: Fees & Rebates - ATM
     WOOLWORTHS.*: Groceries - Woolworths
     OPTUS BILLING.*: Bills - Phone
     MYKI.*: Myki
+  attributes_description:
+    ATM Cash Out: Cash Out
+    .*?[Tt]ransfer to.*|.*?[Tt]ransfer from.*|\AING.*|\AForward.*|\$timothylee: Internal
+    Round Up: Round Up
+    .*?[Ii]nterest.*?: Interest
 
 ing:
   Description:
     .*BUPA.*: Bupa Health Insurance
     .*PSYCHODYNAMICS.*: PSYCHODYNAMICS, CARLTON
+    .*Salary Deposit.*: Income
     .*THE ICONIC.*|\-THE\-ICONIC\-.*: Internet Shopping - The Iconic
     .*THE STUDIO BEANS.*|SQ \*CARNEGIE|The Studio Beans.*: The Studio Beans
     .*UBER.*?EATS.*|Uber Eats.*: Food Delivery - Uber Eats
@@ -37,7 +41,6 @@ ing:
     NETFLIX.*: Subscriptions - Netflix
     OPTUS BILLING.*: Bills - Phone
     ORIGINENERGY.*: Utility - Gas
-    Salary Deposit.*: Income
     SOUTH EAST WATER INT.*: Utility - Water
     SUPERLOOP.*|EXETEL.*: Utility - Internet
     Tango Energy.*: Utility - Electricity
