@@ -83,7 +83,8 @@ class Up(object):
                 'str')
             self.df['tags'] = self.df['attributes_rawText'].replace(
                 tags['up']['attributes_rawText'], regex=True)
-            # self.df[self.df['attributes_rawText']==self.df['tags'], 'tags'] = None
+            cond1 = self.df['attributes_rawText'] == self.df['tags']
+            self.df.loc[cond1, 'tags'] = self.df[cond1]['attributes_description']
             return
 
         def read_all(self):
