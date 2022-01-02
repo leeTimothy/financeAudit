@@ -81,9 +81,20 @@ class Up(object):
             self.df['source'] = 'up'
             self.df['attributes_rawText'] = self.df['attributes_rawText'].astype(
                 'str')
-            self.df['tags'] = self.df['attributes_rawText'].replace(
+
+            cond1 = self.df['attributes_rawText'] == 'None'
+
+            df_desc = self.df[cond1].copy()
+            df_desc['tags'] = df_desc['attributes_description'].replace(
+                tags['up']['attributes_description'], regex=True)
+
+            df_raw = self.df[~cond1].copy()
+            df_raw['tags'] = df_raw['attributes_rawText'].replace(
                 tags['up']['attributes_rawText'], regex=True)
-            cond1 = self.df['attributes_rawText'] == self.df['tags']
+
+            self.df = pd.concat([df_raw, df_desc])
+
+            cond1 = self.df['tags'] == None
             self.df.loc[cond1, 'tags'] = self.df[cond1]['attributes_description']
             return
 
