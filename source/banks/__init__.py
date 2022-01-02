@@ -39,7 +39,7 @@ def parse_transactions(df):
     df['month_year'] = df['attributes_settledAt'].dt.to_period('M')
     for column in df:  # Drop all empty columns
         if df[column].dropna().empty:
-            print(column)
+            df.drop(column, axis=1, inplace=True)
     return df
 
 
