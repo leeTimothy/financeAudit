@@ -19,6 +19,7 @@ class Amalgam(object):
         self.up = self.up.transactions.df
         self.ing = self.ing.transactions.df
         self.summary = self.summary()
+        self.rate = self.rate()
         # self.income = self.income()
         return
 
@@ -26,6 +27,12 @@ class Amalgam(object):
         summary_df = self.df.groupby(['month_year'])[
             'attributes_amount_value'].sum()
         return summary_df
+
+    def rate(self):
+        rate = self.df.groupby(['month_year'])[
+            ['Credit', 'Debit']].sum().copy()
+        rate['delta'] = rate['Credit'] + rate['Debit']
+        return rate
 
     # def income(self):
     #     income_df = self.df[self.df.]
