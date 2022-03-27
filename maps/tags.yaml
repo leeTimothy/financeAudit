@@ -4,44 +4,62 @@ up:
     .*ATM Rebate.*|.*ATM owner fee.*: Fees & Rebates - ATM
     .*MONASH UNIVERSIT.*: Income
     .*NBN CO LIMITED -.*: Income
-    .*THE STUDIO BEANS.*|SQ \*CARNEGIE|The Studio Beans.*: The Studio Beans
+    .*THE STUDIO BEANS.*|SQ \*CARNEGIE|The Studio Beans.*: Food & Beverages - Coffee
+    .*IPANTRY.*: Groceries - iPantry
+    JUN 11 PTY LTD.*: Food & Beverages - Coffee
     MYKI.*: Myki
     OPTUS BILLING.*: Bills - Phone
     WOOLWORTHS.*: Groceries - Woolworths
+    .*UBER.*?EATS.*|Uber Eats.*: Food Delivery - Uber Eats
+    UBER.*?TRIP.*|Uber Trips.*: Ride Share - Uber Trips
   attributes_description:
     .*?[Ii]nterest.*: Interest
+    .*?[Tt]ransfer to.*|.*?[Tt]ransfer from.*|\AING.*|\AForward.*|\$timothylee: Internal
     ATM Cash Out: Cash Out
     Round Up: Round Up
+    ATM Rebate.*: Fees & Rebates - ATM
 
 ing:
   Description:
+    .*183863737.*: Internal - Transfer to 2Up
+    .*timothylee@up.me.*: Internal - Transfer to Up
+    .*ATM Rebate.*|.*ATM owner fee.*: Fees & Rebates - ATM
     .*BUPA.*: Bupa Health Insurance
     .*PSYCHODYNAMICS.*: PSYCHODYNAMICS, CARLTON
     .*Salary Deposit.*: Income
     .*THE ICONIC.*|\-THE\-ICONIC\-.*: Internet Shopping - The Iconic
-    .*THE STUDIO BEANS.*|SQ \*CARNEGIE|The Studio Beans.*: The Studio Beans
+    .*THE STUDIO BEANS.*|SQ \*CARNEGIE|The Studio Beans.*: Food & Beverages - Coffee
     .*UBER.*?EATS.*|Uber Eats.*: Food Delivery - Uber Eats
     .*YOUTUBEPREMIUM.*: Subscriptions - Youtube Premium
     ALDI STORES.*: Groceries - Aldi
     AMAYSIM.*: Bills - Phone
     AMDENT: Healthcare - Dental
-    CARNEGIE IGA.*: IGA
+    ASRC FU.*: Charities - Donation
+    atms.*: Fees & Rebates - ATM
+    CARNEGIE IGA.*: Groceries - IGA
     CHEMIST WAREHOUSE.*: Healthcare - Chemist Warehouse
-    CITY HEALTH.*: City Health
+    CITY HEALTH.*: Healthcare - City Health
+    COLES.*: Groceries - Coles
     DEFT RENT.*: Rent - Carnegie
     DELIVEROO.*|DELIVEROO\.COM\.AU.*: Food Delivery - Deliveroo
     Everyday round up.*: Round Up
-    Goodlife.*: Goodlife Carnegie
+    FASHION CARE DRY.*: Lifestyle - Dry Cleaning
+    Goodlife.*: Lifestyle - Goodlife Carnegie
     Interest Credit: Interest
     Internal Transfer.*: Internal
     International.*?Fee.*: Fees & Rebates - International Transactions
-    JICHUCK.*: HelloMart
-    MCDONALDS.*: McDonalds
-    MUJI.*: Muji
-    MYKI.*: Myki
+    JICHUCK.*: Groceries - HelloMart
+    JUN 11 PTY LTD.*: Food & Beverages - Coffee
+    KFC.*: Food & Beverages - Eating Out
+    MCDONALDS.*: Food & Beverages - Eating Out
+    MUJI.*: Homeware - Muji
+    MYKI.*: Transport - Myki
     NETFLIX.*: Subscriptions - Netflix
     OPTUS BILLING.*: Bills - Phone
     ORIGINENERGY.*: Utility - Gas
+    PENINSULA HOT SPRI.*: Lifestyle - Spa
+    PEPPER LUNCH.*: Food & Beverages - Eating Out
+    Shyun.*: Food & Beverages - Eating Out
     SOUTH EAST WATER INT.*: Utility - Water
     SUPERLOOP.*|EXETEL.*: Utility - Internet
     Tango Energy.*: Utility - Electricity
