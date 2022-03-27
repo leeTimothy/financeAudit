@@ -14,7 +14,6 @@ class Amalgam(object):
         self.df = pd.concat(
             [self.up.transactions.df, self.ing.transactions.df])
         self.df = tag_transactions(self.df)
-
         self.df = parse_transactions(self.df)
         self.up = self.up.transactions.df
         self.ing = self.ing.transactions.df
