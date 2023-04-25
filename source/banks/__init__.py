@@ -9,16 +9,15 @@ class Amalgam(object):
     def __init__(self):
         self.up = trans.Up(amalgam=True)
         # Assumed all values within are provided at settledAt rather than createdAt - see accounts.ING for more info
-        self.ing = trans.ING(amalgam=True)
-        self.accounts = pd.concat([self.up.accounts.df, self.ing.accounts.df])
-        self.df = pd.concat(
-            [self.up.transactions.df, self.ing.transactions.df])
+        # self.ing = trans.ING(amalgam=True)
+        self.accounts = self.up.accounts.df
+        self.df = self.up.transactions.df
         self.df = tag_transactions(self.df)
         self.df = parse_transactions(self.df)
         self.up = self.up.transactions.df
-        self.ing = self.ing.transactions.df
+        # self.ing = self.ing.transactions.df
         self.summary = self.summary()
-        self.rate = self.rate()
+        # self.rate = self.rate()
         # self.income = self.income()
         return
 

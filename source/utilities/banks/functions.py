@@ -8,8 +8,8 @@ METHOD = 'get'
 
 
 # Import Configs
-with open('.\maps\ing_account.yaml', 'r') as file:
-    ing_map = yaml.safe_load(file)
+# with open('.\maps\ing_account.yaml', 'r') as file:
+#     ing_map = yaml.safe_load(file)
 
 
 # TODO - this method currently looks at it from an auth bearer point of view - but you should make this across the board account # specific.
@@ -45,13 +45,4 @@ def up_request(endpoint: str, params: dict = None):
             df = df.drop_duplicates(['id']).reset_index(drop=True)
             df = df.sort_values(['attributes.createdAt'],
                                 ascending=False).reset_index(drop=True)
-    return df
-
-
-def ing_parse(df):
-    df['Credit'] = pd.to_numeric(df['Credit']).fillna(0)
-    df['Debit'] = pd.to_numeric(df['Debit']).fillna(0)
-    df['Total'] = df[['Credit', 'Debit']].sum(axis=1)
-    df['id'] = df['Account'].copy()
-    df['Account'] = df['Account'].replace(ing_map)
     return df

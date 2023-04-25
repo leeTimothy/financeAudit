@@ -1,8 +1,0 @@
-transactions:
-  Date: attributes_settledAt
-  Account: relationships_account_data_id
-  Description: attributes_rawText
-  Total: attributes_amount_value
-accounts:
-  Account: attributes_displayName
-  Total: attributes_balance_value
